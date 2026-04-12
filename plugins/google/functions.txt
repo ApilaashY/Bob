@@ -1,0 +1,2 @@
+open, open < url:string, Opens the given url in the browser you may need to get the url yourself
+search, search < query:string, Searches the given query in the browser. Only use this tool if you don't have the answer or the user explicitly asks you to search for something.

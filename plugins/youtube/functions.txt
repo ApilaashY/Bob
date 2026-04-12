@@ -1,0 +1,1 @@
+download, download < url:string, Downloads the given url from youtube. This functions makes sure to adhere to all copywright laws.
