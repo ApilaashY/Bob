@@ -1,5 +1,7 @@
 import os
 import importlib
+import ast
+import sys
 
 class Function():
     # self.name = string
@@ -33,8 +35,13 @@ class Function():
             processed_params.append(delimiter.join(params[expected_len - 1:]))
         else:
             processed_params = params
-            
-        self.function(*processed_params)
+
+        # Parse parameters that should be lists
+        for i, param in enumerate(processed_params):
+            if self.paramtypes[i].startswith("list"):
+                processed_params[i] = ast.literal_eval(param)
+                
+        return self.function(*processed_params)
 
 def getFunctions() -> list[Function]:
     total = []
@@ -58,12 +65,13 @@ def getFunctions() -> list[Function]:
                     continue
                 
                 try:
-                    name, func, desc = line.split(",")
+                    name, func, *desc = line.split(",")
                     parts = func.strip().split("<")
                     func_name = parts[0].strip()
                     params = parts[1].strip().split(" ") if len(parts) > 1 else []
-                    total.append(Function(f"{plugin}.{name}", func_name, desc, params))
+                    total.append(Function(f"{plugin}.{name}", func_name, ",".join(desc), params))
                 except (ValueError, IndexError):
                     print(f"Skipping malformed line in {functions_file}: {line}")
+ 
 
     return total

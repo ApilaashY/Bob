@@ -1,0 +1,1 @@
+createFunction, createFunction < name:string module:string desc:string params:list<string>, Creates a new function to perform some kind of action that you as an large language model can't do. Example: (open a website, get the time, get the weather, etc.). Keep the description detailed with explainations of what each parameter should do and what the function does.
