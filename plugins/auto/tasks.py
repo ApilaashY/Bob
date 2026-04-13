@@ -11,6 +11,8 @@ def createFunction(name: str, module: str, desc: str, params: list[str]):
     # Remove quotations from params AI mixups
     name = name.replace("'", "").replace('"', "")
     module = module.replace("'", "").replace('"', "")
+    for i in range(len(params)):
+        params[i] = params[i].replace("'", "").replace('"', "")
 
     response = client.models.generate_content(
         model="gemini-3-flash-preview", contents=f"Create the contents of a python file that {desc} with the function to be called named: {name} and parameters: {params}",
